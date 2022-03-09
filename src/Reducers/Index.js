@@ -5,41 +5,42 @@ const InitialProduct ={NumberCart:0,Carts:[],Products:[]}
 
 function ToDoProduct(state=InitialProduct,action)
 {
-    console.log("All products" +JSON.stringify(action))
+    console.log("All products reducer" +action.type)
     switch (action.type) {
        
         case 'GET_ALL_PRODUCT':
-            console.log("All products get")
+            /* console.log("All products get") */
             return{
                 ...state,
                 Products:action.payload
             }    
             break;
-        case 'ADD_CART':
+        case 'Add_To_Cart':
+            console.log("Cart received")
+            return{
+                ...state
+                /* Products:action.payload */
+            }    
+                break;
+        case 'Update_Cart':
             return{
                 ...state,
                 Products:action.payload
             }    
                 break;
-        case 'UPDATE_CART':
-            return{
-                ...state,
-                Products:action.payload
-            }    
-                break;
-        case 'DELETE_CART':
+        case 'Delete_Cart':
             return{
                 ...state,
                 Products:action.payload
                 }    
                 break;    
-        case 'INCREASE_QUANTITY':
+        case 'Increse_Quantity':
             return{
                  ...state,
                 Products:action.payload
                 }    
                 break;
-        case 'DECREASE_QUANTITY':
+        case 'Decrese_Quantity':
             return{
                 ...state,
                 Products:action.payload

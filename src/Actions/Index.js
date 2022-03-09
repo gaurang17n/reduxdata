@@ -12,24 +12,33 @@ export const FetchProductRequest = () =>
 {
     return (dispatch) => {
         return api('products','GET',null).then((res)=>{
-            console.log(res.data)
             dispatch(GetAllProducts(res.data))
         })
     } 
 }
-/* export const FetchProductRequest = (demoitem) => 
+
+export const InsertData =(item)=>
 {
-    console.log("demo item api" + JSON.stringify(demoitem))
-    return (dispatch) => {
-        return api('cart','POST',demoitem).then((res)=>{
-            console.log("data submited in cart.."+res)
-            // dispatch(AddToCart(res.data))
+    
+    console.log("Items are"+item)
+    let item1={
+        "author":item.author,
+        "title":item.title
+    }
+    return (dispatch)=> {
+        
+        return api('cart','POST',item1).then((res)=>{
+            console.log("Insert Data Are" + res)
+            dispatch(AddToCart(res.data))
+
+
         })
-    } 
-} */
+    }
+}
 
 export function GetAllProducts(payload)
 {
+   /*  console.log("GET_ALL_PRODUCT" + payload) */
     return {
         type:'GET_ALL_PRODUCT' ,
         payload
