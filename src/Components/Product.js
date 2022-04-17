@@ -1,60 +1,71 @@
-import React,{useEffect} from 'react';
-import { Container,Row,Col,Card,CardGroup} from 'react-bootstrap';
-import Header from './Header';
-import {ADD_CART,FetchProductRequest} from '../Actions/Index'
-import { connect } from 'react-redux';
-import { getDefaultNormalizer } from '@testing-library/react';
+import React, { useEffect, useState, Component } from "react";
+import { Container, Row, Col, Card, CardGroup, Button } from "react-bootstrap";
+import Header from "./Header";
+import { ADD_CART, FetchProductRequest, InsertData } from "../Actions/Index";
+import { connect } from "react-redux";
 
-function Product(props) {
+class Product extends Component {
+  constructor(props) {
+    super(props);
 
-const getproducts=()=>{
-        props.FetchProductRequest()
-      }
+    /* this.state = {
+       first
+    } */
+  }
+  componentDidMount() {
+    this.props.FetchProductRequest();
+    console.log("product data fetch" + JSON.stringify(this.props.products));
+  }
 
-
-useEffect(() => {
-  getproducts();
-}, [])
-
-
-  return <div>
-      <Container>
-          <Header/>
+  render() {
+    const ProductData = this.props.products.Products;
+    return (
+      <div>
+        <Container>
+          <Header />
           <Row>
-              <Col>
-              <Card style={{ width: '18rem' }}>
+            {ProductData.length > 0 ? (
+              ProductData.map((Pdata, Index) => (
+                <Col key={Index}>
+                  <Card style={{ width: "18rem" }}>
                     <Card.Body>
-                        <Card.Title>Card Title</Card.Title>
-                        <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-                        <Card.Text>
-                        Some quick example text to build on the card title and make up the bulk of
-                        the card's content.
-                        </Card.Text>
-                        <Card.Link href="#">Card Link</Card.Link>
-                        <Card.Link href="#">Another Link</Card.Link>
+                      <Card.Title>{Pdata.id}</Card.Title>
+                      <Card.Subtitle className="mb-2 text-muted">
+                        Card Subtitle
+                      </Card.Subtitle>
+                      <Card.Text>{Pdata.title}</Card.Text>
+                      <Card.Link href="#">{Pdata.author}</Card.Link>
+                      <br />
+                      <Button onClick={() => this.props.InsertData(Pdata)}>
+                        {" "}
+                        Add to Cart
+                      </Button>
                     </Card.Body>
-                    </Card>
-              </Col>
+                  </Card>
+                </Col>
+              ))
+            ) : (
+              <h3> No Data </h3>
+            )}
           </Row>
-     
-    </Container>
-
-  </div>;
+        </Container>
+      </div>
+    );
+  }
 }
 
-const mapStateToProps=(state)=>{
-  console.log("state" + JSON.stringify(state))
+const mapStateToProps = (state) => {
+  /* console.log("state" + JSON.stringify(state)) */
   return {
-    products:state._ToDoProduct
-  }
-}
+    products: state._ToDoProduct,
+  };
+};
 
-const mapDispatchToProps=(dispatch)=>{
-  return{
-    FetchProductRequest:()=>dispatch(FetchProductRequest)
-  }
-}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    FetchProductRequest: () => dispatch(FetchProductRequest()),
+    InsertData: (item) => dispatch(InsertData(item)),
+  };
+};
 
-
-export default connect(mapStateToProps,mapDispatchToProps)(Product)
-
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

@@ -4,13 +4,28 @@
       "id": 1,
       "title": "json-server",
       "author": "typicode"
+    },
+    {
+      "id": 2,
+      "title": "json-server-demo",
+      "author": "typicode-demo"
     }
   ],
-  "comments": [
+  "cart": [
     {
       "id": 1,
       "body": "some comment",
       "postId": 1
+    },
+    {
+      "author": "typicode",
+      "title": "json-server",
+      "id": 2
+    },
+    {
+      "author": "typicode-demo",
+      "title": "json-server-demo",
+      "id": 3
     }
   ],
   "profile": {

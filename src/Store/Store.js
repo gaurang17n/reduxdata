@@ -3,6 +3,6 @@ import thunkMiddleware from 'redux-thunk'
 import shopeApp from '../Reducers/Index'
 
 
-const store=createStore(shopeApp,applyMiddleware(thunkMiddleware))
+const store=createStore(shopeApp,applyMiddleware(thunkMiddleware));
 
-export default store
+export default store;
